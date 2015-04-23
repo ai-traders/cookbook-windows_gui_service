@@ -43,6 +43,37 @@ Requires attributes:
  * `node[:windows_gui_service][:autologin][:user]` - User to use for auto log-in. Default 'Admin'
  * `node[:windows_gui_service][:autologin][:password]` - Password of user to use for auto log-in. Default 'Admin'
 
+### windows_gui_service LWRP
+
+You can use `windows_gui_service` LWRP to add *services*.
+
+The following properties are available
+ * `executable` - string path to program or script to start. A shortcut to it will be created in autostart.
+ * `elevated` - boolean, when true shortcut has 'Runs as Administrator' flag.
+
+Examples
+
+ * Start notepad after auto-login:
+```ruby
+include_recipe 'windows_gui_service::default'
+
+windows_gui_service 'notepad' do
+  executable 'C:/Windows/notepad.exe'
+  action  :create
+end
+```
+
+ * If you need to simulate 'Run As Administrator':
+```ruby
+include_recipe 'windows_gui_service::default'
+
+windows_gui_service 'notepad' do
+  executable 'C:/Windows/notepad.exe'
+  action  :create
+  elevated true
+end
+```
+
 ## License and Authors
 
 Author:: Tomasz Setkowski (<tom@ai-traders.com>)

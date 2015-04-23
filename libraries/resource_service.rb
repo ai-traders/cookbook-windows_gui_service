@@ -21,8 +21,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# installs script needed to elevate shortcut so that it would run as administrator
-include_recipe 'windows_gui_service::_ammend_shortcut'
+require 'chef/resource/lwrp_base'
 
-include_recipe 'windows_gui_service::autologin'
+class Chef
+  class Resource
+    class WindowsGuiService < Chef::Resource::LWRPBase
+      self.resource_name = :windows_gui_service
+      actions :create
+      default_action :create
 
+      attribute :name, kind_of: String, name_attribute: true, required: true
+      attribute :executable, kind_of: String, required: true
+      attribute :elevate, kind_of:  [ TrueClass, FalseClass ], :default => false
+    end
+  end
+end

@@ -21,8 +21,39 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# installs script needed to elevate shortcut so that it would run as administrator
-include_recipe 'windows_gui_service::_ammend_shortcut'
+require 'chef/provider/lwrp_base'
 
-include_recipe 'windows_gui_service::autologin'
+class Chef
+  class Provider
+    class WindowsGuiService < Chef::Provider::LWRPBase
 
+      use_inline_resources if defined?(use_inline_resources)
+
+      def whyrun_supported?
+        true
+      end
+
+      action :create do
+        user = node[:windows_gui_service][:autologin][:user]
+        executable = new_resource.executable
+        elevate = new_resource.elevate
+        # create a link for future boots
+        startup_shortcut = "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\#{new_resource.name} - Shortcut.lnk"
+        
+        windows_shortcut startup_shortcut do
+          target executable
+          if elevate
+            notifies :run, "execute[elevate #{new_resource.name} startup]", :immediate
+          end
+        end
+        ammend_shortcut = "C:\\Windows\\Temp\\ammend_shortcut.vbs"
+        execute "elevate #{new_resource.name} startup" do
+          command "#{ammend_shortcut} #{startup_shortcut}"
+          action :nothing
+        end
+
+      end
+
+    end
+  end
+end
