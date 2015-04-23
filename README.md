@@ -24,7 +24,7 @@ Windows 7 and above.
 
 ## Usage
 
-### windows_gui_service::default
+### Recipe windows_gui_service::default
 
 Include `windows_gui_service` in your node's `run_list`:
 
@@ -35,15 +35,16 @@ Include `windows_gui_service` in your node's `run_list`:
   ]
 }
 ```
+This will configure auto-login and install extra script needed by this cookbook to elevate shortcut permissions.
 
-### windows_gui_service::autologin
+### Recipe windows_gui_service::autologin
 
 Configures auto-login. Adds/updates user and password if missing. 
 Requires attributes:
  * `node[:windows_gui_service][:autologin][:user]` - User to use for auto log-in. Default 'Admin'
  * `node[:windows_gui_service][:autologin][:password]` - Password of user to use for auto log-in. Default 'Admin'
 
-### windows_gui_service LWRP
+### LWRP windows_gui_service
 
 You can use `windows_gui_service` LWRP to add *services*.
 
@@ -54,6 +55,7 @@ The following properties are available
 Examples
 
  * Start notepad after auto-login:
+
 ```ruby
 include_recipe 'windows_gui_service::default'
 
@@ -64,6 +66,7 @@ end
 ```
 
  * If you need to simulate 'Run As Administrator':
+
 ```ruby
 include_recipe 'windows_gui_service::default'
 
@@ -73,6 +76,11 @@ windows_gui_service 'notepad' do
   elevated true
 end
 ```
+
+## Contributing
+
+If you have better/another way of dealing with this then open an issue. Let's talk.
+Pull requests welcome.
 
 ## License and Authors
 
