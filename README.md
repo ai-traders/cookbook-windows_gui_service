@@ -19,11 +19,12 @@ Windows 7 and above.
 
 ## Attributes
 
-
+ * `node[:windows_gui_service][:autologin][:user]` - User to use for auto log-in. Default 'Admin'
+ * `node[:windows_gui_service][:autologin][:password]` - Password of user to use for auto log-in. Default 'Admin'
 
 ## Usage
 
-### .::default
+### windows_gui_service::default
 
 Include `windows_gui_service` in your node's `run_list`:
 
@@ -34,6 +35,13 @@ Include `windows_gui_service` in your node's `run_list`:
   ]
 }
 ```
+
+### windows_gui_service::autologin
+
+Configures auto-login. Adds/updates user and password if missing. 
+Requires attributes:
+ * `node[:windows_gui_service][:autologin][:user]` - User to use for auto log-in. Default 'Admin'
+ * `node[:windows_gui_service][:autologin][:password]` - Password of user to use for auto log-in. Default 'Admin'
 
 ## License and Authors
 
