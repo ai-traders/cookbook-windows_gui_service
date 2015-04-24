@@ -1,3 +1,7 @@
+# 0.3.1
+
+elevated typo fix
+
 # 0.3.0
 
 LWRP to add programs at start-up

@@ -50,7 +50,7 @@ You can use `windows_gui_service` LWRP to add *services*.
 
 The following properties are available
  * `executable` - string path to program or script to start. A shortcut to it will be created in autostart.
- * `elevated` - boolean, when true shortcut has 'Runs as Administrator' flag.
+ * `elevate` - boolean, when true shortcut has 'Runs as Administrator' flag.
 
 Examples
 
@@ -73,7 +73,7 @@ include_recipe 'windows_gui_service::default'
 windows_gui_service 'notepad' do
   executable 'C:/Windows/notepad.exe'
   action  :create
-  elevated true
+  elevate true
 end
 ```
 
