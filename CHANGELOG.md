@@ -1,3 +1,7 @@
+# 0.3.3
+
+fix windows directory perms
+
 # 0.3.2
 
 create autostart directory if not exists

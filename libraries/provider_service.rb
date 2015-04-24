@@ -44,7 +44,7 @@ class Chef
         # ensure directory exists but
         # avoid windows + chef bug with inssuficient perms
         # http://stackoverflow.com/questions/17288107/chef-insufficient-permissions-creating-a-directory-in-c
-        ruby_block "hack to mkdir on windows" do
+        ruby_block "Create startup directory for #{user}" do
           block do
             FileUtils.mkdir_p "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
           end
