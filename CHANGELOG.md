@@ -1,3 +1,7 @@
+# 0.3.2
+
+create autostart directory if not exists
+
 # 0.3.1
 
 elevated typo fix

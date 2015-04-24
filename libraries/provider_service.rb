@@ -38,7 +38,12 @@ class Chef
         executable = new_resource.executable
         elevate = new_resource.elevate
         # create a link for future boots
+        # startup directory as in http://answers.microsoft.com/en-us/windows/forum/windows_7-system/how-to-get-startup-folder-in-start-all-programs/d3f5486a-16c0-4e69-8446-c50dd35163f1
         startup_shortcut = "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\#{new_resource.name} - Shortcut.lnk"
+
+        directory "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup" do
+          recursive true
+        end
         
         windows_shortcut startup_shortcut do
           target executable
