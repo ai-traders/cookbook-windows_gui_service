@@ -49,7 +49,7 @@ class Chef
             FileUtils.mkdir_p "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup"
           end
         end
-        
+
         windows_shortcut startup_shortcut do
           target executable
           if elevate
@@ -61,9 +61,21 @@ class Chef
           command "#{ammend_shortcut} #{startup_shortcut}"
           action :nothing
         end
-
       end
 
+      action :delete do
+        user = node[:windows_gui_service][:autologin][:user]
+        executable = new_resource.executable
+        elevate = new_resource.elevate
+        # link for future boots
+        # startup directory as in http://answers.microsoft.com/en-us/windows/forum/windows_7-system/how-to-get-startup-folder-in-start-all-programs/d3f5486a-16c0-4e69-8446-c50dd35163f1
+        startup_shortcut = "C:\\Users\\#{user}\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\#{new_resource.name} - Shortcut.lnk"
+
+        file startup_shortcut do
+          action :delete
+        end
+      end
+      
     end
   end
 end

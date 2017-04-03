@@ -27,7 +27,7 @@ class Chef
   class Resource
     class WindowsGuiService < Chef::Resource::LWRPBase
       self.resource_name = :windows_gui_service
-      actions :create
+      actions [:create, :delete]
       default_action :create
 
       attribute :name, kind_of: String, name_attribute: true, required: true

@@ -1,3 +1,7 @@
+# 0.4.0
+
+add delete action
+
 # 0.3.3
 
 fix windows directory perms
